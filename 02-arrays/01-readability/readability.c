@@ -2,10 +2,12 @@
 #include <ctype.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 int count_letters(string text);
 int count_sentences(string text);
 int count_words(string text);
+double coleman_liau(int letters, int words, int sentences);
 
 int main(void) {
     string text = get_string("Text: ");
@@ -14,12 +16,8 @@ int main(void) {
     int words = count_words(text);
     int sentences = count_sentences(text);
 
-    // Average number of letters per 100 words.
-    double avg_letters = letters * 100.0 / words;
-    // Average number of sentences per 100 words.
-    double avg_sentences = sentences * 100.0 / words;
-    // Coleman-Liau index.
-    double index = 0.0588 * avg_letters - 0.296 * avg_sentences - 15.8;
+    // Coleman-Liau index
+    double index = coleman_liau(letters, words, sentences);
     // Grade level of the text.
     int grade = round(index);
 
@@ -76,4 +74,14 @@ int count_sentences(string text) {
     }
 
     return sum;
+}
+
+double coleman_liau(int letters, int words, int sentences) {
+    // Average number of letters per 100 words.
+    double average_letters = letters * 100.0 / words;
+    // Average number of sentences per 100 words.
+    double average_sentences = sentences * 100.0 / words;
+    // Calculate Coleman-Liau index
+    double index = 0.0588 * average_letters - 0.296 * average_sentences - 15.8;
+    return index;
 }
