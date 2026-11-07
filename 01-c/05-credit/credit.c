@@ -7,8 +7,7 @@ bool valid_card(long card_number, string network);
 int len(long card_number);
 string card_network(long card_number);
 
-int main(void)
-{
+int main(void) {
     // Get card number from user.
     long card_number = get_long("Number: ");
     // Validate card network and length
@@ -16,30 +15,24 @@ int main(void)
 
     // Validate whether a card number is
     // American Express, MasterCard, Visa, or invalid.
-    if (valid_card(card_number, network))
-    {
+    if (valid_card(card_number, network)) {
         printf("%s\n", network);
-    }
-    else
-    {
+    } else {
         printf("INVALID\n");
     }
 
     return 0;
 }
 
-bool valid_card(long card_number, string network)
-{
+bool valid_card(long card_number, string network) {
     return network[0] != 'I' && checksum(card_number);
 }
 
-int len(long card_number)
-{
+int len(long card_number) {
     int length = 0; // Card number length
 
     // Count the number of digits.
-    while (card_number > 0)
-    {
+    while (card_number > 0) {
         card_number /= 10;
         length += 1;
     }
@@ -47,13 +40,11 @@ int len(long card_number)
     return length;
 }
 
-bool checksum(long card_number)
-{
+bool checksum(long card_number) {
     int sum = 0;
 
     // Luhn's Algorithm
-    while (card_number > 0)
-    {
+    while (card_number > 0) {
         // Add first rightmost digit to sum.
         int digit = card_number % 10;
         sum += digit;
@@ -70,13 +61,11 @@ bool checksum(long card_number)
     return sum % 10 == 0;
 }
 
-string card_network(long card_number)
-{
+string card_network(long card_number) {
     int length = len(card_number);
 
     // Get the first two digits from left of card number.
-    while (card_number >= 100)
-    {
+    while (card_number >= 100) {
         card_number /= 10;
     }
 
@@ -89,16 +78,11 @@ string card_network(long card_number)
     // Visa: 13-digit or 16-digit numbers with prefix 4
     bool is_visa = (prefix / 10 == 4) && (length == 13 || length == 16);
 
-    if (is_amex)
-    {
+    if (is_amex) {
         return "AMEX";
-    }
-    else if (is_mastercard)
-    {
+    } else if (is_mastercard) {
         return "MASTERCARD";
-    }
-    else if (is_visa)
-    {
+    } else if (is_visa) {
         return "VISA";
     }
 
