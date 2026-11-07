@@ -10,7 +10,7 @@ const int POINTS[] = {1, 3, 3, 2,  1, 4, 2, 4, 1, 8, 5, 1, 3,
 int compute_score(string word);
 
 int main(void) {
-    // Get input words from both players.
+    // Get words from both players.
     string word1 = get_string("Player 1: ");
     string word2 = get_string("Player 2: ");
 
@@ -31,15 +31,19 @@ int main(void) {
 }
 
 int compute_score(string word) {
-    // Compute and return score for string.
     int score = 0;
     int length = strlen(word);
 
+    // Compute score for letters only.
     for (int i = 0; i < length; i++) {
-        char letter = tolower(word[i]);
-        int letter_index = (int)letter - 'a';
-        int points = POINTS[letter_index];
-        score += points;
+        char letter = word[i];
+
+        // Use ASCII to map letters to indices 0-25.
+        if (isupper(letter)) {
+            score += POINTS[letter - 'A'];
+        } else if (islower(word[i])) {
+            score += POINTS[letter - 'a'];
+        }
     }
 
     return score;
