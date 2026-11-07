@@ -83,10 +83,10 @@ string card_network(long card_number)
     int prefix = card_number;
 
     // American Express: 15-digit numbers with prefix 34 or 37
-    // MasterCard: 16-digit numbers with prefix 51, 52, 53, 54, or 55
-    // Visa: 13-digit or 16-digit numbers with prefix 4
     bool is_amex = (prefix == 34 || prefix == 37) && length == 15;
+    // MasterCard: 16-digit numbers with prefix 51, 52, 53, 54, or 55
     bool is_mastercard = prefix >= 51 && prefix <= 55 && length == 16;
+    // Visa: 13-digit or 16-digit numbers with prefix 4
     bool is_visa = (prefix / 10 == 4) && (length == 13 || length == 16);
 
     if (is_amex)
