@@ -1,9 +1,9 @@
 #include <cs50.h>
 #include <stdio.h>
 
-int main(void) 
+int main(void)
 {
-    // Get height of pyramid from user.
+    // Get pyradmid height from user
     int height;
     const int MIN_HEIGHT = 1;
     const int MAX_HEIGHT = 8;
@@ -12,10 +12,12 @@ int main(void)
         height = get_int("Height: ");
     } while (height < MIN_HEIGHT || height > MAX_HEIGHT);
 
-    // Print a right-aligned pyramid and a left-aligned pyramid.
+    // Use leading spaces to right-align the rows
     int spaces = height - 1;
+
     for (int row = 0; row < height; row++)
     {
+        // Print a right-aligned pyramid
         for (int col = 0; col < height; col++)
         {
             if (col < spaces)
@@ -28,16 +30,17 @@ int main(void)
             }
         }
 
-        spaces--;
-        printf("  ");
-        
+        spaces -= 1;
+        printf("  "); // Print the gap
+
+        // Print a left-aligned pyramid
         for (int col = 0; col <= row; col++)
         {
             printf("#");
         }
-        
+
         printf("\n");
     }
-    
+
     return 0;
 }
